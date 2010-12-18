@@ -26,7 +26,19 @@
 		
 		$.plot($("#placeholder-1"), [ d1, d30 ]);
 		$.plot($("#placeholder-3"), [ d1, d2, d3 ]);
-		$( "#tabs" ).tabs();
+
+		$( "#tabs" ).tabs({
+			select: function(event, ui) {
+				if (ui.index==3){
+					alert(ui.index);
+					//$( "#tabs" ).tabs("load",3);
+					//ui.panel.location.href = "http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161";
+				}
+			 }
+		});
+		$("#tabs").tabs("add","index.html","server");
+		//$( "#tabs" ).tabs( "http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",3,"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161");
+		
     });
     </script>
 </head>
@@ -40,6 +52,7 @@
         <li><a href="#tabs-1">CPU Usage</a></li>
         <li><a href="#tabs-2">System</a></li>
         <li><a href="#tabs-3">Memory</a></li>
+		<li><a href="#tabs-4">Memory</a></li>
     </ul>
     <div id="tabs-1">
 		<div id="placeholder-1" style="width:600px;height:300px;"></div>
@@ -58,4 +71,7 @@
     <div id="tabs-3">
 		<div id="placeholder-3" style="width:600px;height:300px;"></div>
     </div>
+	
+	
+	
 </div>
