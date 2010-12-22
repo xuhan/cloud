@@ -90,7 +90,11 @@ $(function() {
 				//console.log( $(this).contents().find('body').eq(0).html());
 				var arr = $(this).contents().find('body').eq(0).html().split('<br>');
 				$.each(arr,function(i,value){
-					div.append('<div>' + value + '</div>');
+					var arr2 = value.split('=');
+					if(arr2.length == 2){
+						$('<div><label>'+arr2[0].substr(3)+':</label> </div>').appendTo(div);
+						//div.append('<div>' + value + '</div>');
+					}
 				});
 			});			
 		});
