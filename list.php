@@ -67,34 +67,39 @@ $(function(){
 	}
  });
 });
-    var ec2Array =[
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161"
 
-    ] ;
+var prefix = 'http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=';
+var ipArray =[
+	"184.73.95.117",
+	"75.101.232.42",
+	"67.202.3.128",
+	"50.16.20.176",
+	"174.143.141.50"
+];
 $(function() {
-		$.each(ec2Array,function(index,value){
-			var url = 'ec2-'+index;
-			$('<li><a href="#' + url + '">Instance '+index+'</a></li>').appendTo($('#tab_ul'));
-			$('<div id="'+url+'"><iframe width="958" frameborder=0 height="400px" src="'+ value +'"></iframe></div>').appendTo($('#tabs'));
-
+		$.each(ipArray,function(index,value){
+			var url = 'ip-'+index;
+			$('<li><a href="#' + url + '">'+value+'</a></li>').appendTo($('#tab_ul'));
+			var iframe = $('<iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe>');
+			var div = $('<div id="'+url+'"></div>');
+			iframe.appendTo(div);
+			//iframe.hide();
+			div.appendTo($('#tabs'));
+			iframe.load(function() {
+				//console.log($(this).html());
+			});			
 		});
-
 		$( "#tabs" ).tabs({
 			select: function(event, ui) {
 				//$(ui.panel).append('<iframe>a</iframe>');
-
+				
 				if (ui.index==3){
 					//alert(ui.index);
 					//$( "#tabs" ).tabs("load",3);
-
+					//ui.panel.location.href = "http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161";
 				}
 			 }
 		});
-
 });
 
 $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:false});});
@@ -111,7 +116,7 @@ $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:
 <table id="list10_d"></table>
 <div id="pager10_d"></div>
 <!--a href="javascript:void(0)" id="ms1">Get Selected id's</a-->
-<div class="demo">
+
 <table width=1000><tr><td>
 <div id="tabs">
 
@@ -121,7 +126,7 @@ $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:
     <div id="summary">
 
 		<div id="placeholder-1"></div>
-		 <h2>EC2 Summary</h2>
+		 <h2>Summary</h2>
 
     </div>
 
