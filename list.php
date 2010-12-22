@@ -83,11 +83,15 @@ $(function() {
 			var iframe = $('<iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe>');
 			var div = $('<div id="'+url+'"></div>');
 			iframe.appendTo(div);
-			//iframe.hide();
+			iframe.hide();
 			div.appendTo($('#tabs'));
 			iframe.load(function() {
 				//alert('good');
-				console.log( $(this).contents().find('body').eq(0).html());
+				//console.log( $(this).contents().find('body').eq(0).html());
+				var arr = $(this).contents().find('body').eq(0).html().split('<br>');
+				$.each(arr,function(i,value){
+					div.append('<div>' + value + '</div>');
+				});
 			});			
 		});
 		$( "#tabs" ).tabs({
