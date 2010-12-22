@@ -33,14 +33,13 @@ foreach ($response->body->instancesSet->item as $item)
 $akis = array();
 //ec2 end
 for ($i=0;$i<$count;$i++){
-	echo $ins_id[$i];
 $response = $ec2->create_tags($ins_id[$i], array(
     array('Key' => 'Name', 'Value' => $name),
 ));
 }
 if ($response->isOK()){
 
-	echo "<script>alert('The instance has been created.');</script>";
+	echo "<script>alert('The instance $ins_id[0] has been created.'); location.href='list.php';</script>";
 
 }else {
 	

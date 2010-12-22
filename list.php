@@ -24,7 +24,7 @@ html, body {
 
 $(function(){
 	$("#list10").jqGrid({
-   	url: "list_get.php?q=2&page=1&rows=15",
+   	url: "list_get.php?q=2&rows=15",
 	datatype: "json",
    	colNames:['No', 'Name', 'Instance ID', 'Image ID','State', 'Key', 'Instance Type', 'Domain', 'Launch Time', 'Zone', 'IP Address', 'Private IP Addr', 'Architecture'],
    	colModel:[

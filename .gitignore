@@ -1,4 +1,8 @@
 *.class
 *.zip
+*.swp
+*.~
+.*
+backup/*
 !.gitignore
 
