@@ -1,11 +1,9 @@
-<?php
-	if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-		$uri = 'https://';
-	} else {
-		$uri = 'http://';
-	}
-	$uri .= $_SERVER['HTTP_HOST'];
-	header('Location: '.$uri.'/xampp/');
-	exit;
-?>
-Something is wrong with the XAMPP installation :-(
+<html>
+<frameset border=1 rows="70,*">
+  <frame src="head.html"  name='head'/>
+  <frame src="body.php" name='body' />
+</frameset>
+<html>
+
+<a href="copy.php">copy</a>
+<a href="show.php?ip=10.202.78.161">show</a>
