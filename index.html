@@ -12,12 +12,13 @@
 		}
 	</style>
     <script>
-    var ec2Array =[
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161"
+    var prefix = 'http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=';
+    var ipArray =[
+		"184.73.95.117",
+		//"75.101.232.42",
+		"67.202.3.128",
+		"50.16.20.176",
+		"174.143.141.50"
     ];
     
     $(function() {
@@ -35,10 +36,10 @@
 //		$.plot($("#placeholder-1"), [ d1, d30 ]);
 //		$.plot($("#placeholder-3"), [ d1, d2, d3 ]);
 */
-		$.each(ec2Array,function(index,value){
-			var url = 'ec2-'+index;
-			$('<li><a href="#' + url + '">Instance '+index+'</a></li>').appendTo($('#tab_ul'));
-			$('<div id="'+url+'"><iframe width="100%" height="600px" src="'+ value +'"></iframe></div>').appendTo($('#tabs'));
+		$.each(ipArray,function(index,value){
+			var url = 'ip-'+index;
+			$('<li><a href="#' + url + '">'+value+'</a></li>').appendTo($('#tab_ul'));
+			$('<div id="'+url+'"><iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe></div>').appendTo($('#tabs'));
 		});
 		
 		$( "#tabs" ).tabs({
@@ -60,17 +61,17 @@
 </head>
 
 <body>
-		
-<div class="demo">
 
-<div id="tabs">
+<div id="tabs" style="width:50%">
     <ul id="tab_ul">
-        <li><a href="#summary">EC2 Summary</a></li>		
+        <li><a href="#summary">Summary</a></li>		
     </ul>
     <div id="summary">
 		<div id="placeholder-1"></div>
-		 <h2>EC2 Summary</h2>
+		 <h2>Summary</h2>
     </div>
 	
 	
 </div>
+
+</body>
