@@ -15,7 +15,7 @@
     var prefix = 'http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=';
     var ipArray =[
 		"184.73.95.117",
-		//"75.101.232.42",
+		"75.101.232.42",
 		"67.202.3.128",
 		"50.16.20.176",
 		"174.143.141.50"
@@ -39,7 +39,14 @@
 		$.each(ipArray,function(index,value){
 			var url = 'ip-'+index;
 			$('<li><a href="#' + url + '">'+value+'</a></li>').appendTo($('#tab_ul'));
-			$('<div id="'+url+'"><iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe></div>').appendTo($('#tabs'));
+			var iframe = $('<iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe>');
+			var div = $('<div id="'+url+'"></div>');
+			iframe.appendTo(div);
+			//iframe.hide();
+			div.appendTo($('#tabs')).append($('<div>aaaa</div>'));
+			iframe.load(function() {
+				console.log($(this).html());
+			});			
 		});
 		
 		$( "#tabs" ).tabs({
