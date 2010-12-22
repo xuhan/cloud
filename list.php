@@ -81,18 +81,16 @@ $(function() {
 			var url = 'ip-'+index;
 			$('<li><a href="#' + url + '">'+value+'</a></li>').appendTo($('#tab_ul'));
 			var iframe = $('<iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe>');
-			var div = $('<div id="'+url+'"></div>');
+			var div = $('<div id="'+url+'" style="display:table"></div>');
 			iframe.appendTo(div);
 			iframe.hide();
 			div.appendTo($('#tabs'));
 			iframe.load(function() {
-				//alert('good');
-				//console.log( $(this).contents().find('body').eq(0).html());
 				var arr = $(this).contents().find('body').eq(0).html().split('<br>');
 				$.each(arr,function(i,value){
 					var arr2 = value.split('=');
 					if(arr2.length == 2){
-						$('<div><label>'+arr2[0].substr(3)+':</label> </div>').appendTo(div);
+						$('<div style="display:table-row"><div style="display:table-cell">'+arr2[0].substr(3)+':</div><div style="display:table-cell">'+ arr2[1] +'</div> </div>').appendTo(div);
 						//div.append('<div>' + value + '</div>');
 					}
 				});

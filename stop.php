@@ -24,7 +24,7 @@ html, body {
 
 $(function(){
 	$("#list10").jqGrid({
-   	url: "list_get.php?q=2&page=1&rows=15",
+   	url: "list_get.php?q=2&rows=15",
 	datatype: "json",
    	colNames:['No', 'Name', 'Instance ID', 'Image ID','State', 'Key', 'Instance Type', 'Domain', 'Launch Time', 'Zone', 'IP Address', 'Private IP Addr', 'Architecture'],
    	colModel:[
@@ -42,13 +42,14 @@ $(function(){
    		{name:'privateipaddress',index:'privateipaddress', width:85},
    		{name:'architecture',index:'architecture', width:30},
    	],
-   	rowNum:15,
-   	rowList:[15,30,45],
+   	rowNum:30,
+   	rowList:[30,40,50],
    	pager: '#pager10',
    	sortname: 'id',
+	height: 380,	
     viewrecords: true,
     sortorder: "desc",
-	multiselect: false,
+	multiselect: true,
 	caption: "Amazon EC2 Instances",
 	onSelectRow: function(ids) {
 		if(ids == null) {
@@ -67,39 +68,31 @@ $(function(){
 	}
  });
 });
-    var ec2Array =[
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161",
-		"http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=10.202.78.161"
-
-    ] ;
 $(function() {
-		$.each(ec2Array,function(index,value){
-			var url = 'ec2-'+index;
-			$('<li><a href="#' + url + '">Instance '+index+'</a></li>').appendTo($('#tab_ul'));
-			$('<div id="'+url+'"><iframe width="958" frameborder=0 height="400px" src="'+ value +'"></iframe></div>').appendTo($('#tabs'));
 
+
+		jQuery("#m1").click( function() {
+		var s = jQuery("#list10").jqGrid('getGridParam','selarrrow');
+		if (s.length > 0)	
+		{
+			var ret;
+			var sum="";
+			for (var i=0; i<s.length; i++){
+				ret = jQuery("#list10").jqGrid('getRowData',s[i]);
+				sum +=ret.instanceId+" ";
+			}
+			alert(sum);
+			document.stopinstance.location.href="stop_instance.php?s="+sum;
+		} else { 
+			alert("Please select row");
+		}
 		});
 
-		$( "#tabs" ).tabs({
-			select: function(event, ui) {
-				//$(ui.panel).append('<iframe>a</iframe>');
-
-				if (ui.index==3){
-					//alert(ui.index);
-					//$( "#tabs" ).tabs("load",3);
-
-				}
-			 }
-		});
 
 });
 
+
 $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:false});});
-
-
 </script>
  
 </head>
@@ -111,21 +104,34 @@ $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:
 <table id="list10_d"></table>
 <div id="pager10_d"></div>
 <!--a href="javascript:void(0)" id="ms1">Get Selected id's</a-->
-<div class="demo">
-<table width=1000><tr><td>
-<div id="tabs">
 
-    <ul id="tab_ul">
-        <li><a href="#summary">Instance Monitoring Information</a></li>		
-    </ul>
-    <div id="summary">
+<!--a href="javascript:void(0)" id="m1">Get Selected id's</a-->
+<style>
+input.groovybutton
+{
+   font-size:14px;
+   font-weight:bold;
+   width:220px;
+   height:35px;
+   background-color:#FF9933;
+   border-style:solid;
+   border-width:1px;
+}
+</style>
+<iframe name=stopinstance frameborder=0 width=0 height=10></iframe>
 
-		<div id="placeholder-1"></div>
-		 <h2>EC2 Summary</h2>
+<div>
 
-    </div>
+<input id="m1"
+   type="submit"
+   name="groovybtn1"
+   class="groovybutton"
+   value="    Stop Selected Instances"
+   title="">
+
+</div>
 
 
-</div></td></tr></table>
+
 
 
