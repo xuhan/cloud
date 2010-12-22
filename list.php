@@ -86,11 +86,14 @@ $(function() {
 			//iframe.hide();
 			div.appendTo($('#tabs'));
 			iframe.load(function() {
-				//console.log($(this).html());
+				//alert('good');
+				console.log( $(this).contents().find('body').eq(0).html());
 			});			
 		});
 		$( "#tabs" ).tabs({
 			select: function(event, ui) {
+
+				//ui.panel.chidren('iframe').attr('src',$(ui.panel).chidren('iframe').attr('src'));
 				//$(ui.panel).append('<iframe>a</iframe>');
 				
 				if (ui.index==3){
