@@ -81,7 +81,7 @@ $(function() {
 				ret = jQuery("#list10").jqGrid('getRowData',s[i]);
 				sum +=ret.instanceId+" ";
 			}
-			alert(sum);
+			//alert(sum);
 			document.stopinstance.location.href="stop_instance.php?s="+sum;
 		} else { 
 			alert("Please select row");

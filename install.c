@@ -11,9 +11,21 @@
 void go_copy(char * ip)
 {
 	char buf[255];
-	sprintf(buf, "./scp -i new.pem ./java/* ec2-user@%s:~",ip);
+	memset(buf, 0, 255);
+	printf("%sd\n",ip);
+	sprintf(buf, "/usr/bin/scp -o \"StrictHostKeyChecking no\" -i new.pem ./java/* ec2-user@%s:~",ip);
+	printf("Trying: %s\n", buf);
 	system(buf);
-	printf("1\n");
+	
+	memset(buf, 0, 255);
+	sprintf(buf, "ssh -o \"StrictHostKeyChecking no\" -i new.pem ec2-user@%s 'java TCPServer &'",ip);
+	printf("Trying: %s\n", buf);
+	
+	int pid = fork();
+	if (pid == 0){
+		system(buf);
+	}
+
 }
 
 
@@ -23,7 +35,8 @@ int main( )
   int fd;
   int wd;
   char buffer[EVENT_BUF_LEN];
-
+FILE *in;
+char s[255];
   fd = inotify_init();
 
   if ( fd < 0 ) {
@@ -48,7 +61,17 @@ int main( )
         		else {
 				if (strcmp(event->name,"new_ip.txt")==0){
 					printf("file...%s\n", event->name);
-					go_copy("10.202.78.161");
+  sleep(1);
+  if ( (in = fopen("new_ip.txt", "r")) == NULL) {
+	printf("file error\n");  
+  }
+  memset(s,0,255);
+  while (fgets(s, 255, in) != NULL) {
+	s[strlen(s)-1]='\0';
+	go_copy(s);
+  }
+  fcloseall(); 
+
 				}
 
 

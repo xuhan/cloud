@@ -38,6 +38,12 @@ $response = $ec2->create_tags($ins_id[$i], array(
 ));
 }
 if ($response->isOK()){
+	//$myFile = "new_ip.txt";
+	//@unlink($myFile);
+
+	//$ourFileHandle = fopen($myFile, 'w') or die("can't open file");
+	//fwrite($ourFileHandle, "ip");
+	//fclose($ourFileHandle);
 
 	echo "<script>alert('The instance $ins_id[0] has been created.'); location.href='list.php';</script>";
 

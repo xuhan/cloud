@@ -21,8 +21,9 @@ html, body {
 <script src="./js/jquery.jqGrid.min.js" type="text/javascript"></script>
  
 <script type="text/javascript">
-
+var refreshId;
 $(function(){
+
 	$("#list10").jqGrid({
    	url: "list_get.php?q=2&rows=15",
 	datatype: "json",
@@ -60,21 +61,62 @@ $(function(){
 				.trigger('reloadGrid');
 			}
 		} else {
-			jQuery("#list10_d").jqGrid('setGridParam',{url:"subgrid.php?q=1&id="+ids,page:1});
-			jQuery("#list10_d").jqGrid('setCaption',"Invoice Detail: "+ids)
-			.trigger('reloadGrid');			
+			var id = jQuery("#list10").jqGrid('getGridParam','selrow');
+			if (id)	{
+			var ret = jQuery("#list10").jqGrid('getRowData',id);
+			} else { alert("Please select row");}
+			var value = ret.privateipaddress;
+			/*var prefix = 'show.php?ip=';
+			var url = 'ip-'+ret.id;
+			alert(url);
+			$('<li><a href="#' + url + '">'+value+'</a></li>').appendTo($('#tab_ul'));
+			var iframe = $('<iframe width="100%" height="600px" src="'+ prefix + value +'"></iframe>');
+			var div = $('<div id="'+url+'" style="display:table"></div>');
+			iframe.appendTo(div);
+			iframe.hide();
+			div.appendTo($('#tabs'));
+			iframe.load(function() {
+				var arr = $(this).contents().find('body').eq(0).html().split('<br>');
+				$.each(arr,function(i,value){
+					var arr2 = value.split('=');
+					if(arr2.length == 2){
+						$('<div style="display:table-row"><div style="display:table-cell">'+arr2[0].substr(3)+':</div><div style="display:table-cell">'+ arr2[1] +'</div> </div>').appendTo(div);
+						//div.append('<div>' + value + '</div>');
+					}
+				});
+			});*/
+			//monitorframe.location.href=prefix+value;
+			clearInterval(refreshId); 
+			$("#refr").load(prefix+value);
+			refreshId = setInterval(function()
+			{
+     				$('#refr').load(prefix+value);
+			}, 2000);
+
+
+			
+			//jQuery("#list10_d").jqGrid('setGridParam',{url:"subgrid.php?q=1&id="+ids,page:1});
+			//jQuery("#list10_d").jqGrid('setCaption',"Invoice Detail: "+ids)
+			//.trigger('reloadGrid');			
 		}
 	}
  });
+
+
+
+
+
+
 });
 
-var prefix = 'http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=';
+//var prefix = 'http://ec2-50-16-20-176.compute-1.amazonaws.com/show.php?ip=';
+var prefix = 'show.php?ip=';
 var ipArray =[
-	"184.73.95.117",
-	"75.101.232.42",
-	"67.202.3.128",
-	"50.16.20.176",
-	"174.143.141.50"
+	//"184.73.95.117",
+	//"75.101.232.42",
+	//"67.202.3.128",
+	//"50.16.20.176",
+	//"174.143.141.50"
 ];
 $(function() {
 		$.each(ipArray,function(index,value){
@@ -96,6 +138,7 @@ $(function() {
 				});
 			});			
 		});
+
 		$( "#tabs" ).tabs({
 			select: function(event, ui) {
 
@@ -109,10 +152,13 @@ $(function() {
 				}
 			 }
 		});
+
+
+
+
+
 });
-
 $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:false});});
-
 
 </script>
  
@@ -135,8 +181,7 @@ $(function(){$("#list10").jqGrid('navGrid','#pager10',{add:false,edit:false,del:
     <div id="summary">
 
 		<div id="placeholder-1"></div>
-		 <h2>Summary</h2>
-
+		<div id="refr"></div>
     </div>
 
 

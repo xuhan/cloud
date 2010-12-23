@@ -46,17 +46,19 @@ html, body {
 	<ul>
 	<li><a href='list.php' target='content'>Instances</a></li>
 	<li><a href='create.php' target='content'>Create Instance</a></li>
+	<li><a href='agent.php' target='content'>Install Agent</a></li>
 	<li><a href='stop.php' target='content'>Stop Instance</a></li>
+	<li><a href='start.php' target='content'>Start Instance</a></li>
 	<li><a href='terminate.php' target='content'>Terminate Instance</a></li>
 	</ul>
 	</div>
 	<h3><a href="#">Monitoring</a></h3>
 	<div>
 	<ul>
-	<li><a href='list.php' target='content'>CPU Usage</a></li>
-	<li><a href='create.php' target='content'>RAM</a></li>
-	<li><a href='stop.php' target='content'>Network</a></li>
-	<li><a href='terminate.php' target='content'>Process</a></li>
+	<li><a href='mcpu.php' target='content'>CPU Usage</a></li>
+	<li><a href='mram.php' target='content'>RAM</a></li>
+	<li><a href='mnet.php' target='content'>Network</a></li>
+	<!--li><a href='terminate.php' target='content'>Process</a></li-->
 	</ul>
 	</div>
 	
@@ -72,10 +74,9 @@ html, body {
 
 
 	<h3><a href="#">Screen</a></h3>
-	<div>
-	</div>
-	<h3><a href="#">Misc</a></h3>
-	<div>
+	<div><ul>
+	<li><a href='screen.php' target='content'>Screen Monitoring</a></li>
+	</ul>
 	</div>
 </div>
 

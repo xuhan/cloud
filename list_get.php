@@ -39,7 +39,6 @@ foreach ($response->body->reservationSet->item as $item)
 	$count++;
 }
 //ec2 end
-
 if( $count >0 ) {
 	$total_pages = ceil($count/$limit);
 } else {
